@@ -99,7 +99,7 @@ deploy_APP_NAME_API_stag:
     - |
       if [ "$CI_COMMIT_REF_NAME" == "stag" ]; then
         sed -i -e "s#\[NAMESPACE\]#$NAMESPACE_STAG#g" skaffold.yaml
-        sed -i -e "s#\[APP_NAME\]#$AAPP_NAME_API#g" skaffold.yaml
+        sed -i -e "s#\[APP_NAME\]#$APP_NAME_API#g" skaffold.yaml
         sed -i -e "s#\[CONTAINER_REPO\]#$CONTAINER_REPO_ASIA_STAG#g" skaffold.yaml
         sed -i -e "s#\[CI_COMMIT_REF_NAME\]#$CI_COMMIT_REF_NAME#g" skaffold.yaml
       fi
