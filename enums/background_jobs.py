@@ -1,0 +1,7 @@
+
+
+class BackgroundJobsType:
+    NFT = 'NFT'
+    BOX = 'BOX'
+    REFERRAL_COMMISSION = 'REFERRAL_COMMISSION'
+    
