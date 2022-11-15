@@ -1,2 +1,2 @@
 redlock-py==1.0.8
-celery==6.0.0
+celery==5.2.7
