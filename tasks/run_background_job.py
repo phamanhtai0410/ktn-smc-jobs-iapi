@@ -39,7 +39,7 @@ def run_background_job(background_job):
 
     if BackgroundJobsType.REFERRAL_COMMISSION == get(background_job, 'type'):
         debug("Run handle_logs NFT MintOrderForDev,MintOrderFromDaapCreator")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block}  abi_path={_dict}/{_abi_path}  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type=REFERRAL_COMMISSION args_fields=returnMintingOrder dict_fields=returnMintingOrder#tokenId-rarity-cid'
+        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block}  abi_path={_dict}/{_abi_path}  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type=REFERRAL_COMMISSION parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#tokenId-rarity-cid'
 
     # if BackgroundJobsType.BOX == get(background_job, 'type'):
     #     debug("Run handle_logs BOX")
