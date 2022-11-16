@@ -176,7 +176,7 @@ class RedisState(EventScannerState):
         self.wk_handle = handle_log
         # get and set for each scan event
         self.key_state = f'ktn_cron/scanner:{handle_func}:{address}'
-        debug('key_state: ', self.key_state)
+        debug(f'{self.address} - key_state: ', self.key_state)
         self.last_save = 0
         self.address = address
         self.init_block = init_block
@@ -207,7 +207,7 @@ class RedisState(EventScannerState):
                 self.reset(self.init_block)
             # print(f"Restored the state, previously {self.state['last_scanned_block']} blocks have been scanned")
         except (IOError, json.decoder.JSONDecodeError):
-            print("State starting from scratch")
+            print(f"{self.address} - State starting from scratch")
             self.reset(self.init_block)
 
     def save(self):
@@ -270,14 +270,14 @@ class RedisState(EventScannerState):
             if _tx_hash:
                 _key = f'msp:msp_redlock\{self.address}:{_tx_hash}'
                 _lock = True #dlm.lock(_key, 300000)
-                print(f'🔑 🔑 🔑 Key lock: {_key}')
+                print(f'{self.address} - 🔑 🔑 🔑 Key lock: {_key}')
                 if _lock:
                     print(
-                        f'\033[92m ✔✔✔ Process .................. {_tx_hash} \033[0m')
+                        f'{self.address} - \033[92m ✔✔✔ Process .................. {_tx_hash} \033[0m')
                     self.wk_handle.delay(json.dumps(_wk_event))
                 else:
                     print(
-                        f'\033[93m ⚠⚠⚠ ______ Lock fail ______ {_tx_hash} \033[0m')
+                        f'{self.address} - \033[93m ⚠⚠⚠ ______ Lock fail ______ {_tx_hash} \033[0m')
         except:
             sentry_sdk.capture_exception()
             traceback.print_exc()
@@ -395,7 +395,7 @@ if __name__ == "__main__":
     while True:
         try:
             # Note that our chain reorg safety blocks cannot go negative 18435731
-            print(f'get_last_scanned_block {state.get_last_scanned_block()}')
+            print(f'{contract} - get_last_scanned_block {state.get_last_scanned_block()}')
 
             start_block = state.get_last_scanned_block()
 
@@ -409,23 +409,23 @@ if __name__ == "__main__":
                 else:
                     formatted_time = "no block time available"
                 print(
-                    f"Current block: {current} ({formatted_time}), blocks in a scan batch: {chunk_size}, events processed in a batch {events_count}")
+                    f"{contract} - Current block: {current} ({formatted_time}), blocks in a scan batch: {chunk_size}, events processed in a batch {events_count}")
 
 
-            print(f"cron log start: {start_block} -> {end_block}")
+            print(f"{contract} - cron log start: {start_block} -> {end_block}")
 
             result, total_chunks_scanned = provider.scanner.scan(
                 start_block,
                 end_block,
                 start_chunk_size=7,
                 progress_callback=_update_progress)
-            print(f'done scan {result}')
+            print(f'{contract} - done scan {result}')
         except:
             sentry_sdk.capture_exception()
             traceback.print_exc()
             old_rpc = f'{provider_rpc}'
             if not providers:
-                print("Cannot switch rpc => retry current rpc")
+                print(f"{contract} - Cannot switch rpc => retry current rpc")
                 sentry_sdk.capture_message(
                     "Cannot switch rpc => retry current rpc")
             else:
@@ -433,5 +433,5 @@ if __name__ == "__main__":
                 providers.append(old_rpc)
                 provider = _providers[provider_rpc]
                 sentry_sdk.capture_message(
-                    f"switch rpc: from {old_rpc} to {provider_rpc}")
+                    f"{contract} - switch rpc: from {old_rpc} to {provider_rpc}")
         sleep(21)

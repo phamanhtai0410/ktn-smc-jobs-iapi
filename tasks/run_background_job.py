@@ -55,8 +55,10 @@ def run_background_job(background_job):
     autostart=true
     autorestart=false
     redirect_stderr=true
-    stdout_logfile=/logs/{_bg_id}.out.log
-    stderr_logfile=/logs/{_bg_id}.err.log
+    stdout_logfile=/dev/stdout
+    stderr_logfile=/dev/stderr
+    stdout_logfile_maxbytes=0
+    stderr_logfile_maxbytes=0
     """
     _config_file_path = f"/subprocess/{_bg_id}.conf"
     debug(f"_config_file_path {_config_file_path}")
