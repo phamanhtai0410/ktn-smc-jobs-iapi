@@ -1,4 +1,4 @@
-FROM 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/esollabs/cicd:sh-python-ba4ec63-dirty
+FROM 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/esollabs/cicd:rinz-python-7dd9ebf-dirty
 
 RUN apk update && apk add --no-cache  tzdata git make  build-base supervisor
 
@@ -12,7 +12,8 @@ RUN pip --no-cache-dir install --upgrade pip setuptools wheel
 RUN pip --no-cache-dir install -r /lib/requirements.txt
 RUN pip --no-cache-dir install -r requirements.txt
 COPY conf/supervisor/ /etc/supervisor.d/
-RUN mkdir -p /webapps/subprocess/ 
+RUN mkdir -p /webapps/subprocess/
 RUN mkdir -p /subprocess
+
 COPY . /webapps
 WORKDIR /webapps
