@@ -176,7 +176,6 @@ class RedisState(EventScannerState):
         self.wk_handle = handle_log
         # get and set for each scan event
         self.key_state = f'ktn_cron/scanner:{handle_func}:{address}'
-        debug(f'{self.address} - key_state: ', self.key_state)
         self.last_save = 0
         self.address = address
         self.init_block = init_block
@@ -185,6 +184,7 @@ class RedisState(EventScannerState):
         self.parse_event = parse_event
         self.extra_data = extra_data
         self.event_type = event_type
+        debug(f'{self.address} - key_state: ', self.key_state)
         self.restore()
 
     def reset(self, init_block=0):
