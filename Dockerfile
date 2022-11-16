@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM 968557029040.dkr.ecr.ap-southeast-1.amazonaws.com/esollabs/cicd:sh-python-ba4ec63-dirty
 
 COPY . /webapps
 WORKDIR /webapps
