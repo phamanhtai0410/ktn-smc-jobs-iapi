@@ -36,9 +36,9 @@ class Config:
         'worker.on_mint_order_from_dapp_creator': {'queue': 'ktn-referral-commission-queue'},
         'worker.send_task_events': {'queue': 'ktn-smc-jobs-iapi-queue'},
         'worker.run_background_jobs': {'queue': 'ktn-smc-jobs-iapi-queue'},
-        'worker.on_created_box': {'ktn-nft-queue'},
-        'worker.on_transfer_box': {'ktn-nft-queue'},
-        'worker.on_open_box': {'ktn-nft-queue'},
+        'worker.on_created_box': {'queue': 'ktn-nft-queue'},
+        'worker.on_transfer_box': {'queue': 'ktn-nft-queue'},
+        'worker.on_open_box': {'queue': 'ktn-nft-queue'},
     }
 
     SEND_TASKS_NAME = {
