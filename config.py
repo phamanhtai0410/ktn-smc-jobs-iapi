@@ -36,25 +36,39 @@ class Config:
         'worker.on_mint_order_from_dapp_creator': {'queue': 'ktn-referral-commission-queue'},
         'worker.send_task_events': {'queue': 'ktn-smc-jobs-iapi-queue'},
         'worker.run_background_jobs': {'queue': 'ktn-smc-jobs-iapi-queue'},
-        
+        'worker.on_created_box': {'ktn-nft-queue'},
+        'worker.on_transfer_box': {'ktn-nft-queue'},
+        'worker.on_open_box': {'ktn-nft-queue'},
     }
 
     SEND_TASKS_NAME = {
         'NFT': {
             'Transfer': 'worker.on_transfer_nft',
             'TokenCreated': 'worker.on_token_created',
+
         },
         'REFERRAL_COMMISSION': {
             'MintOrderForDev': 'worker.on_mint_order_from_dev',
-            'MintOrderFromDaapCreator': 'worker.on_mint_order_from_dapp_creator'
+            'MintOrderFromDaapCreator': 'worker.on_mint_order_from_dapp_creator',
+
         },
-        'BOX': {}
+        'BOX': {
+            'TokenCreated': 'worker.on_created_box',
+            'SendNft': 'worker.on_transfer_box',
+            'OpenBox': 'worker.on_open_box',
+        },
+        'BOX_REFERRAL_COMMISSION': {
+            'MintOrderForDev': 'worker.on_mint_order_from_dev',
+            'MintOrderFromDaapCreator': 'worker.on_mint_order_from_dapp_creator',
+
+        },
     }
 
     ABIS_PATH =  {
         'NFT': 'abis/katana_nft.json',
         'REFERRAL_COMMISSION': 'abis/katana_nft.json',
         'BOX': 'abis/katana_box.json',
+        'BOX_REFERRAL_COMMISSION': 'abis/katana_box.json',
 
     }
 
