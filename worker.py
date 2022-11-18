@@ -10,7 +10,6 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 from flask import Flask
 from config import Config
 from connect import connect_db
-from celery.signals import worker_ready
 
 
 def create_worker():
@@ -34,11 +33,11 @@ def create_worker():
 
 
 worker = create_worker()
-
-from helper.background_jobs import BackgroundJobsHelper
+from celery.signals import worker_ready
+import requests
 
 @worker_ready.connect()
 def message_poll_start(sender=None, headers=None, body=None, **kwargs):
-    print('-'*10, 'WORKER START', '-'*10)
-    BackgroundJobsHelper.restart()
-    print('-'*10, 'DONE RESTART WORKER', '-'*10)
+        print('-'*10, 'WORKER START', '-'*10)
+        requests.post(f'{Config.API_URL}/background_jobs/restart')
+        print('-'*10, 'DONE RESTART WORKER', '-'*10)

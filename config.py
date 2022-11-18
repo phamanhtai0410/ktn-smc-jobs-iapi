@@ -77,3 +77,5 @@ class Config:
     REDLOCK_REDIS = json.loads(os.getenv('REDLOCK_REDIS', '[]'))
 
     RPC_URIS = json.loads(os.getenv('RPC_URIS', default='[]'))
+
+    API_URL = os.getenv('API_URL', 'http://localhost:5005')
