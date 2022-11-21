@@ -47,7 +47,7 @@ def run_background_job(background_job):
 
     if BackgroundJobsType.BOX_REFERRAL_COMMISSION == get(background_job, 'type'):
         debug("Run handle_logs BOX COMMISSION")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX_REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#id-index-price-is_opened-owner_by'
+        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX_REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#id-index-price-is_opened-owner_by-token_uri'
 
     if not _command:
         raise Exception("Not found command")
@@ -74,7 +74,7 @@ def run_background_job(background_job):
         ["supervisorctl", "reread"], timeout=10)
 
     subprocess.run(
-        ["supervisorctl", "update"], timeout=10)
+        ["supervisorctl", "update"], timeout=10)    
     debug(f"run subprocess {_config_file_path}")
 
     return "Job running"
