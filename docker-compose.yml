@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  #serivce:
+  ktn-smc-jobs-iapi-service:
+    image: ktn-smc-jobs-iapi
+    container_name: ktn-smc-jobs-iapi-service
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/webapps
+    ports:
+      - 6009:5005
+    networks:
+      - base-network
+    command: supervisord -n -c /etc/supervisor.d/service.conf
+
+  ktn-smc-jobs-iapi-worker:
+    image: ktn-smc-jobs-iapi
+    container_name: ktn-smc-jobs-iapi-worker
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/webapps
+    networks:
+      - base-network
+    command: supervisord -n -c /etc/supervisor.d/worker.conf
+
+networks:
+  base-network:
+    external: true
