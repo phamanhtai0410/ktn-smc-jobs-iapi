@@ -35,7 +35,7 @@ def run_background_job(background_job):
     _contract = Web3.toChecksumAddress(_contract)
     if BackgroundJobsType.NFT == get(background_job, 'type'):
         debug("Run handle_logs NFT Transfer,TokenCreated")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path} event=Transfer,TokenCreated handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.NFT} extra_data=nft_type#NFT'
+        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path} event=Transfer,TokenCreated,MintFromBoxOpening handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.NFT} extra_data=nft_type#NFT'
 
     if BackgroundJobsType.REFERRAL_COMMISSION == get(background_job, 'type'):
         debug("Run handle_logs NFT MintOrderForDev,MintOrderFromDaapCreator")
@@ -64,7 +64,9 @@ def run_background_job(background_job):
     stdout_logfile_maxbytes=0
     stderr_logfile_maxbytes=0
     """
-    _config_file_path = f"/subprocess/{_bg_id}.conf"
+    
+    # _config_file_path = f"/subprocess/{_bg_id}.conf"
+    _config_file_path = f"{_dict}/subprocess/{_bg_id}.conf"
     debug(f"_config_file_path {_config_file_path}")
 
     with open(_config_file_path, 'w') as f:

@@ -45,6 +45,7 @@ class Config:
         'NFT': {
             'Transfer': 'worker.on_transfer_nft',
             'TokenCreated': 'worker.on_token_created',
+            'MintFromBoxOpening': 'worker.on_mint_from_box'
 
         },
         'REFERRAL_COMMISSION': {

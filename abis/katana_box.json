@@ -1,17 +1,6 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_boxNFTCreator",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_boxesConfigurations",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -165,15 +154,10 @@
 						"internalType": "address",
 						"name": "owner_by",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
 					}
 				],
 				"indexed": false,
-				"internalType": "struct BoxNFTDetails.BoxNFTDetail[]",
+				"internalType": "struct BoxDetails.BoxDetail[]",
 				"name": "returnMintingOrder",
 				"type": "tuple[]"
 			}
@@ -217,15 +201,10 @@
 						"internalType": "address",
 						"name": "owner_by",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
 					}
 				],
 				"indexed": false,
-				"internalType": "struct BoxNFTDetails.BoxNFTDetail[]",
+				"internalType": "struct BoxDetails.BoxDetail[]",
 				"name": "returnMintingOrder",
 				"type": "tuple[]"
 			}
@@ -420,15 +399,10 @@
 						"internalType": "address",
 						"name": "owner_by",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
 					}
 				],
 				"indexed": false,
-				"internalType": "struct BoxNFTDetails.BoxNFTDetail",
+				"internalType": "struct BoxDetails.BoxDetail",
 				"name": "details",
 				"type": "tuple"
 			}
@@ -636,6 +610,25 @@
 				"type": "address"
 			}
 		],
+		"name": "blackList",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "boughtList",
 		"outputs": [
 			{
@@ -655,19 +648,6 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "boxNFTCreator",
-		"outputs": [
-			{
-				"internalType": "contract IBoxNFTCreator",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -703,19 +683,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "boxesConfigurations",
-		"outputs": [
-			{
-				"internalType": "contract IBoxesConfigurations",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256[]",
@@ -742,29 +709,21 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "characterToken",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "contract ICharacterToken",
-				"name": "",
+				"internalType": "address",
+				"name": "_wallet",
 				"type": "address"
+			},
+			{
+				"internalType": "uint96",
+				"name": "_rate",
+				"type": "uint96"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "coinToken",
-		"outputs": [
-			{
-				"internalType": "contract IERC20",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
+		"name": "configRoyalty",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -817,14 +776,9 @@
 						"internalType": "address",
 						"name": "owner_by",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
 					}
 				],
-				"internalType": "struct BoxNFTDetails.BoxNFTDetail[]",
+				"internalType": "struct BoxDetails.BoxDetail[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -882,14 +836,9 @@
 						"internalType": "address",
 						"name": "owner_by",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
 					}
 				],
-				"internalType": "struct BoxNFTDetails.BoxNFTDetail[]",
+				"internalType": "struct BoxDetails.BoxDetail[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -1009,9 +958,14 @@
 				"type": "string"
 			},
 			{
-				"internalType": "contract IERC20",
-				"name": "_coinToken",
-				"type": "address"
+				"internalType": "string",
+				"name": "_tokenURI",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_totalSupply",
+				"type": "uint256"
 			}
 		],
 		"name": "initialize",
@@ -1049,6 +1003,11 @@
 				"internalType": "uint256",
 				"name": "_count",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isWhitelistMint",
+				"type": "bool"
 			},
 			{
 				"internalType": "address",
@@ -1166,19 +1125,6 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "count",
-				"type": "uint256"
-			}
-		],
-		"name": "ownerMint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
 			}
@@ -1260,6 +1206,35 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_salePrice",
+				"type": "uint256"
+			}
+		],
+		"name": "royaltyInfo",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "from",
 				"type": "address"
@@ -1312,24 +1287,6 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "tokenIds_",
-				"type": "uint256[]"
-			}
-		],
-		"name": "sendNft",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "operator",
 				"type": "address"
 			},
@@ -1340,32 +1297,6 @@
 			}
 		],
 		"name": "setApprovalForAll",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_boxesConfigurations",
-				"type": "address"
-			}
-		],
-		"name": "setBoxConfiguration",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "boxCreator_",
-				"type": "address"
-			}
-		],
-		"name": "setBoxCreator",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1399,19 +1330,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "contractAddress",
-				"type": "address"
-			}
-		],
-		"name": "setCharacterToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "maxOpen_",
 				"type": "uint256"
@@ -1431,24 +1349,6 @@
 			}
 		],
 		"name": "setTotalBox",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "setWhitelist",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1514,11 +1414,6 @@
 				"internalType": "address",
 				"name": "owner_by",
 				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "tokenURI",
-				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -1570,6 +1465,19 @@
 			}
 		],
 		"name": "tokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tokenUri",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -1645,71 +1553,6 @@
 		"name": "upgradeToAndCall",
 		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "whiteList",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "whiteListBought",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "whiteListPool",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "count",
-				"type": "uint256"
-			}
-		],
-		"name": "whitelistMint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

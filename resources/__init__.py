@@ -15,7 +15,6 @@ api_resources = {
     '/hello': HelloWorld,
     '/common/health_check': HealthCheck,
     **{f'/iapi{k}': val for k, val in iapi_resources.items()},
-    '/background_jobs': BackgroundJobsResource,
+    '/background_jobs': BackgroundJobsResource, 
     '/background_jobs/restart': BackgroundJobsRestartResource,
-    
 }
