@@ -65,8 +65,8 @@ def run_background_job(background_job):
     stderr_logfile_maxbytes=0
     """
     
-    # _config_file_path = f"/subprocess/{_bg_id}.conf"
-    _config_file_path = f"{_dict}/subprocess/{_bg_id}.conf"
+    _config_file_path = f"/subprocess/{_bg_id}.conf" #[PRODUCT]
+    # _config_file_path = f"{_dict}/subprocess/{_bg_id}.conf" #[LOCAL]
     debug(f"_config_file_path {_config_file_path}")
 
     with open(_config_file_path, 'w') as f:
