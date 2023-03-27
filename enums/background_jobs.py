@@ -5,3 +5,7 @@ class BackgroundJobsType:
     BOX = 'BOX'
     REFERRAL_COMMISSION = 'REFERRAL_COMMISSION'
     BOX_REFERRAL_COMMISSION = 'BOX_REFERRAL_COMMISSION'
+
+class Chains:
+    BSC = "BSC"
+    POLYGON = "POLYGON"

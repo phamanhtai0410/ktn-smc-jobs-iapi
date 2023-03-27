@@ -36,7 +36,8 @@ class BackgroundJobsHelper:
         }, update={
             '$set': {
                 'abi_path': _abi_path,
-                'from_block': form_data['from_block']
+                'from_block': form_data['from_block'],
+                'chain': py_.get(form_data, 'chain')
             }
         }, upsert=True, return_document=ReturnDocument.AFTER)
 

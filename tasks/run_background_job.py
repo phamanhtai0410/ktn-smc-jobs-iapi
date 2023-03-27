@@ -31,23 +31,23 @@ def run_background_job(background_job):
     _from_block = get(background_job, 'from_block')
     _contract = get(background_job, 'contract')
     _abi_path = get(background_job, 'abi_path')
-
+    _chain = get(background_job, 'chain', "BSC")
     _contract = Web3.toChecksumAddress(_contract)
     if BackgroundJobsType.NFT == get(background_job, 'type'):
         debug("Run handle_logs NFT Transfer,TokenCreated")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path} event=Transfer,TokenCreated,MintFromBoxOpening handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.NFT} extra_data=nft_type#NFT'
+        _command = f'python3 scripts/handle_logs.py chain={_chain} contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path} event=Transfer,TokenCreated,MintFromBoxOpening handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.NFT} extra_data=nft_type#NFT'
 
     if BackgroundJobsType.REFERRAL_COMMISSION == get(background_job, 'type'):
         debug("Run handle_logs NFT MintOrderForDev,MintOrderFromDaapCreator")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path}  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#tokenId-rarity-cid-nftType'
+        _command = f'python3 scripts/handle_logs.py chain={_chain}  contract={_contract} from_block={_from_block} abi_path={_dict}/{_abi_path}  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#tokenId-rarity-cid-nftType'
 
     if BackgroundJobsType.BOX == get(background_job, 'type'):
         debug("Run handle_logs BOX")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=SendNft,TokenCreated,OpenBox handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX} extra_data=nft_type#BOX'
+        _command = f'python3 scripts/handle_logs.py chain={_chain} contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=SendNft,TokenCreated,OpenBox handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX} extra_data=nft_type#BOX'
 
     if BackgroundJobsType.BOX_REFERRAL_COMMISSION == get(background_job, 'type'):
         debug("Run handle_logs BOX COMMISSION")
-        _command = f'python3 scripts/handle_logs.py contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX_REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#id-index-price-is_opened-owner_by-token_uri'
+        _command = f'python3 scripts/handle_logs.py chain={_chain} contract={_contract} from_block={_from_block} abi_path=abis/katana_box.json  event=MintOrderForDev,MintOrderFromDaapCreator handle_path=tasks handle_func=send_task_events event_type={BackgroundJobsType.BOX_REFERRAL_COMMISSION} parse_event=1 args_fields=returnMintingOrder dict_fields=returnMintingOrder#id-index-price-is_opened-owner_by-token_uri'
 
     if not _command:
         raise Exception("Not found command")

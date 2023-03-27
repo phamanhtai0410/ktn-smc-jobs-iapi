@@ -77,6 +77,7 @@ class Config:
     REDIS_CLUSTER = json.loads(os.getenv('REDIS_CLUSTER'))
     REDLOCK_REDIS = json.loads(os.getenv('REDLOCK_REDIS', '[]'))
 
-    RPC_URIS = json.loads(os.getenv('RPC_URIS', default='[]'))
+    BSC_RPC_URIS = json.loads(os.getenv('BSC_RPC_URIS'))
+    POLYGON_RPC_URIS = json.loads(os.getenv('POLYGON_RPC_URIS'))
 
     API_URL = os.getenv('API_URL', 'http://localhost:5005')

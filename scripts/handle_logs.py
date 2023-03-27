@@ -34,6 +34,7 @@ from web3 import Web3
 
 from config import Config
 from logger import debug
+from config import Config
 
 debug(Config.REDIS_CLUSTER)
 if Config.SENTRY_DSN:
@@ -312,11 +313,10 @@ class RedisState(EventScannerState):
 
 
 if __name__ == "__main__":
-
     contract = kw_dict.get('contract')
     INIT_BLOCK_NUMBER = int(kw_dict.get('from_block', '0'))
-    providers = Config.RPC_URIS
-
+    providers = getattr(Config, f'{kw_dict["chain"]}_RPC_URIS')
+    print("providers ", providers)
     event = kw_dict.get('event')
     event = event.split(',')
     abi_path = kw_dict.get('abi_path')
