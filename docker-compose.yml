@@ -5,6 +5,7 @@ services:
   ktn-smc-jobs-iapi-service:
     image: [IMAGE_REPO]
     container_name: ktn-smc-jobs-iapi-service
+    restart: always
     # build:
     #   context: .
     #   dockerfile: Dockerfile.dev
@@ -19,6 +20,7 @@ services:
   ktn-smc-jobs-iapi-worker:
     image: [IMAGE_REPO]
     container_name: ktn-smc-jobs-iapi-worker
+    restart: always
     # build:
     #   context: .
     #   dockerfile: Dockerfile.dev
