@@ -395,7 +395,7 @@ if __name__ == "__main__":
     while True:
         try:
             # Note that our chain reorg safety blocks cannot go negative 18435731
-            debug(f'contract:{contract} - get_last_scanned_block {state.get_last_scanned_block()}')
+            debug(f'contract:{contract} - get_last_scanned_block {state.get_last_scanned_block()} - {event}')
 
             start_block = state.get_last_scanned_block()
 
@@ -409,17 +409,17 @@ if __name__ == "__main__":
                 else:
                     formatted_time = "no block time available"
                 debug(
-                    f"contract:{contract} - Current block: {current} ({formatted_time}), blocks in a scan batch: {chunk_size}, events processed in a batch {events_count}")
+                    f"contract:{contract} - Current block: {current} ({formatted_time}), blocks in a scan batch: {chunk_size}, event: {event}, events processed in a batch {events_count}")
 
 
-            debug(f"contract:{contract} - cron log start: {start_block} -> {end_block}")
+            debug(f"contract:{contract} - cron log start: {start_block} -> {end_block} - event: {event}")
 
             result, total_chunks_scanned = provider.scanner.scan(
                 start_block,
                 end_block,
                 start_chunk_size=7,
                 progress_callback=_update_progress)
-            debug(f'contract:{contract} - done scan {result}')
+            debug(f'contract:{contract} - done scan {result} - event: {event}')
         except:
             sentry_sdk.capture_exception()
             traceback.debug_exc()
