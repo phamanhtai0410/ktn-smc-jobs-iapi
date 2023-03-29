@@ -19,29 +19,32 @@ def run_shuffle(collection_address: str):
         _collection = CollectionModel.find_one(filter={
             'address': collection_address.lower()    
         })
-        _total_supply = py_.get(_collection, 'total_supply', 0)
-        if _total_supply:
-            _types_list =py_.get(_collection, 'types_list')
-            _collection_indexes = []
-            for _idx, _type in enumerate(_types_list):
-                _weight_per_type = int(_total_supply * (py_.get(_type, 'rate')) / 100.0)
-                for i in range(_weight_per_type):
-                    _collection_indexes.append(_idx)
-            if len(_collection_indexes) < _total_supply:
-                _lost = _total_supply - len(_collection_indexes)
-                _collection_indexes += [_collection_indexes[0] for i in range(_lost)]
-  
-            random.shuffle(_collection_indexes)
-            random.shuffle(_collection_indexes)
-            random.shuffle(_collection_indexes)
+        _is_box = py_.get(_collection, 'is_box', False)
+        if _is_box:
+            _total_supply = py_.get(_collection, 'total_supply', 0)
+            if _total_supply:
+                _types_list =py_.get(_collection, 'types_list')
+                _collection_indexes = []
+                for _idx, _type in enumerate(_types_list):
+                    _weight_per_type = int(_total_supply * (py_.get(_type, 'rate')) / 100.0)
+                    for i in range(_weight_per_type):
+                        _collection_indexes.append(_idx)
+                if len(_collection_indexes) < _total_supply:
+                    _lost = _total_supply - len(_collection_indexes)
+                    _collection_indexes += [_collection_indexes[0] for i in range(_lost)]
+    
+                random.shuffle(_collection_indexes)
+                random.shuffle(_collection_indexes)
+                random.shuffle(_collection_indexes)
 
-            ShuffledCollectionModel.insert_one({
-                'contract': collection_address.lower(),
-                'shuffled_indexes': _collection_indexes,
-                'created_time': dt_utcnow(),
-                'created_by': 'smc-jobs-iapi-worker'
-            })
+                ShuffledCollectionModel.insert_one({
+                    'contract': collection_address.lower(),
+                    'shuffled_indexes': _collection_indexes,
+                    'created_time': dt_utcnow(),
+                    'created_by': 'smc-jobs-iapi-worker'
+                })
+        return f"DONE - shuffle for cntract: {collection_address}"
     except:
         traceback.print_exc()
         sentry_sdk.capture_exception()
-        return f"FAIL - on_token_created: {collection_address}"
+        return f"FAIL - shuffle for contract: {collection_address}"
