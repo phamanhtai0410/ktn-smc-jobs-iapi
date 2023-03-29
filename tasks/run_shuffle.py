@@ -11,7 +11,7 @@ from lib.utils import dt_utcnow
 
 db = MongoClient(Config.MONGO_URI, connect=False)['katana-dapp']
 CollectionModel = db['collection']
-ShuffledCllecttinModel = db['shuffled_collection']
+ShuffledCollectionModel = db['shuffled_collection']
 
 @worker.task(name='worker.run_shuffle', rate_limit='100/s')
 def run_shuffle(collection_address: str):
@@ -35,7 +35,7 @@ def run_shuffle(collection_address: str):
             random.shuffle(_collection_indexes)
             random.shuffle(_collection_indexes)
 
-            ShuffledCllecttinModel.insert_one({
+            ShuffledCollectionModel.insert_one({
                 'contract': collection_address.lower(),
                 'shuffled_indexes': _collection_indexes,
                 'created_time': dt_utcnow(),
