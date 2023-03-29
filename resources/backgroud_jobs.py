@@ -13,6 +13,7 @@ from enums.background_jobs import BackgroundJobsType
 from helper.background_jobs import BackgroundJobsHelper
 from schemas.background_jobs import BackgroundJobsSchema
 import pydash as py_
+from tasks import run_shuffle
 
 class BackgroundJobsResource(Resource):
 
@@ -21,6 +22,12 @@ class BackgroundJobsResource(Resource):
         form_data=BackgroundJobsSchema()
     )
     def post(self, form_data):
+        """
+            Run shuffle for all token Ids in the collection in the beginning of collection creation
+        """
+        _contract = py_.get(form_data, 'contract')
+        run_shuffle.delay(_contract)
+
         # NOTE: each type NFT and BOX will have 2 log, 1 for mint from contract, 1 for mint from BE
         BackgroundJobsHelper.add(form_data=form_data)
 
