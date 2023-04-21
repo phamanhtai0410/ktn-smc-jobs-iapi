@@ -80,5 +80,7 @@ class Config:
 
     BSC_RPC_URIS = json.loads(os.getenv('BSC_RPC_URIS'))
     POLYGON_RPC_URIS = json.loads(os.getenv('POLYGON_RPC_URIS'))
-
+    AVAX_RPC_URIS = json.loads(os.getenv('AVAX_RPC_URIS'))
+    BOBA_RPC_URIS = json.loads(os.getenv('BOBA_RPC_URIS'))
+    
     API_URL = os.getenv('API_URL', 'http://localhost:5005')
