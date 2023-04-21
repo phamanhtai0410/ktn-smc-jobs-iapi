@@ -9,3 +9,5 @@ class BackgroundJobsType:
 class Chains:
     BSC = "BSC"
     POLYGON = "POLYGON"
+    AVAX = "AVAX"
+    BOBA = "BOBA"
