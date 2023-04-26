@@ -422,7 +422,7 @@ if __name__ == "__main__":
             debug(f'contract:{contract} - done scan {result} - event: {event}')
         except:
             sentry_sdk.capture_exception()
-            traceback.debug_exc()
+            traceback.print_exc()
             old_rpc = f'{provider_rpc}'
             if not providers:
                 debug(f"contract:{contract} - Cannot switch rpc => retry current rpc")
