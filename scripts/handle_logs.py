@@ -281,7 +281,7 @@ class RedisState(EventScannerState):
                         f'contract:{self.address} - \033[93m ⚠⚠⚠ ______ Lock fail ______ {_tx_hash} \033[0m')
         except:
             sentry_sdk.capture_exception()
-            traceback.debug_exc()
+            traceback.print_exc()
         return {
             "blockNumber": get(event, "blockNumber")
         }
@@ -307,7 +307,7 @@ class RedisState(EventScannerState):
             return _wk_event
         except:
             sentry_sdk.capture_exception()
-            traceback.debug_exc()
+            traceback.print_exc()
         
         return {}
 
