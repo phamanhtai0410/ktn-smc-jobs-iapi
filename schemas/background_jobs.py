@@ -20,7 +20,8 @@ class BackgroundJobsSchema(Schema):
                 Chains.BSC, 
                 Chains.POLYGON,
                 Chains.AVAX,
-                Chains.BOBA
+                Chains.BOBA,
+                Chains.ETHEREUM
             ]
         ), missing="BSC", default="BSC")
     type = fields.String(required=True, validate=validate.OneOf([BackgroundJobsType.NFT, BackgroundJobsType.BOX]), allow_none=False)

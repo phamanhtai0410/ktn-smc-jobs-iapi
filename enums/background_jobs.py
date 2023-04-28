@@ -11,3 +11,4 @@ class Chains:
     POLYGON = "POLYGON"
     AVAX = "AVAX"
     BOBA = "BOBA"
+    ETHEREUM = "ETHEREUM"

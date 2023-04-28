@@ -82,5 +82,6 @@ class Config:
     POLYGON_RPC_URIS = json.loads(os.getenv('POLYGON_RPC_URIS'))
     AVAX_RPC_URIS = json.loads(os.getenv('AVAX_RPC_URIS'))
     BOBA_RPC_URIS = json.loads(os.getenv('BOBA_RPC_URIS'))
+    ETHEREUM_RPC_URIS = json.loads(os.getenv('ETHEREUM_RPC_URIS'))
     
     API_URL = os.getenv('API_URL', 'http://localhost:5005')
