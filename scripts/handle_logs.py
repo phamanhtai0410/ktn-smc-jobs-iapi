@@ -172,7 +172,8 @@ class RedisState(EventScannerState):
     Simple load/store massive JSON on start up.
     """
 
-    def __init__(self, address, handle_log, init_block=0, handle_func='', parse_event=0, args_fields=[], dict_fields={}, extra_data={}, event_type=''):
+    def __init__(self, chain, address, handle_log, init_block=0, handle_func='', parse_event=0, args_fields=[], dict_fields={}, extra_data={}, event_type=''):
+        self.chain = chain
         self.state = None
         self.wk_handle = handle_log
         # get and set for each scan event
@@ -268,6 +269,8 @@ class RedisState(EventScannerState):
             _tx_hash = _tx_hash.lower()
             _wk_event['block_time'] = block_when.timestamp()
             _wk_event['transactionHash'] = _tx_hash
+            _wk_event['chain'] = self.chain
+            
             if _tx_hash:
                 _key = f'msp:msp_redlock\{self.address}:{_tx_hash}'
                 _lock = True #dlm.lock(_key, 300000)
@@ -317,11 +320,15 @@ if __name__ == "__main__":
     INIT_BLOCK_NUMBER = int(kw_dict.get('from_block', '0'))
     providers = getattr(Config, f'{kw_dict["chain"]}_RPC_URIS')
     print("providers ", providers)
+    if not providers:
+        raise Exception(f"Invalid chain: Not found the chain's RPCs")
+    
     event = kw_dict.get('event')
     event = event.split(',')
     abi_path = kw_dict.get('abi_path')
     handle_path = kw_dict.get('handle_path')
     handle_func = kw_dict.get('handle_func')
+    chain = kw_dict.get('chain')
 
     parse_event = int(get(kw_dict, 'parse_event', 0))
     args_fields = get(kw_dict, 'args_fields', '')
@@ -370,7 +377,7 @@ if __name__ == "__main__":
 
     _providers = {}
     # init state scanner
-    state = RedisState(address=contract, handle_log=_func, init_block=INIT_BLOCK_NUMBER, handle_func=str(handle_func), \
+    state = RedisState(chain=chain, address=contract, handle_log=_func, init_block=INIT_BLOCK_NUMBER, handle_func=str(handle_func), \
         parse_event=parse_event, args_fields=_args_fields, dict_fields=_dict_fields, extra_data=_extra_data, event_type=event_type)
     if scan_all:
         state.reset(INIT_BLOCK_NUMBER)

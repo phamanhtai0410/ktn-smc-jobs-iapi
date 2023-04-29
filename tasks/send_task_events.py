@@ -23,17 +23,24 @@ def send_task_events(event):
     debug('# Send task for handle event: ', event)
     _event = json_util.loads(event)
     _event_name = py_.get(_event, 'event')
+    _chain = py_.get(event, 'chain')
     _contract = py_.get(_event, 'address')
     _event_type = py_.get(_event, 'event_type')
-
+    
+    # Add chain to event's data
+    _event = {
+        **_event,
+        'chain': _chain
+    }
+    
     _task_name = py_.get(Config.SEND_TASKS_NAME, f'{_event_type}.{_event_name}')
 
     if not _task_name:
         sentry_sdk.capture_message(f'FAIL - not config handle for: {_contract}, {_event}, {_event_type}')
-        return f'FAIL - not config handle for: {_contract}, {_event}, {_event_type}'
+        return f'FAIL - not config handle for: {_chain}, {_contract}, {_event}, {_event_type}'
 
     print('# task_name', _task_name)
 
     worker.send_task(_task_name, (json_util.dumps(_event), ))
 
-    return f'DONE - send_task {_task_name} for: {_contract}, {_event}, {_event_type}'
+    return f'DONE - send_task {_task_name} for: {_chain}, {_contract}, {_event}, {_event_type}'
